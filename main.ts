@@ -37,15 +37,13 @@ namespace SCD30 {
     let humidity: number = 0
     let co2: number = 0
     
-    control.inBackground(() => {
-        enableContinuousMeasurement()
-        while (true) {
-            readMeasurement()
-            basic.pause(2000)
-        }
-    })
-    
-    function enableContinuousMeasurement(): void{
+    /**
+     * start the sensor to measure CO2 every 2 seconds
+     */
+    //% weight=50 blockGap=8
+    //% block="enableContinuousMeasurement"
+    //% blockId=enableContinuousMeasurement
+    export function enableContinuousMeasurement(): void{
         let commandBuffer = pins.createBuffer(5)
 
         //command
@@ -123,7 +121,15 @@ namespace SCD30 {
         }
     }
 
-    function readMeasurement(): void{
+    /**
+     * reads measurement data.
+     * data is then available trough 
+     * the corresponding variables
+     */
+    //% weight=52 blockGap=8
+    //% block="readMeasurement" 
+    //% blockId=readMeasurement
+    export function readMeasurement(): void{
         while(readReady() == false){
             basic.pause(10)
             //serial.writeLine("waiting in: readMeasurement()")
